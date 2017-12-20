@@ -3,8 +3,8 @@
 Super simple app to listen for POST requests and open the URL specified by the
 'url' parameter in the request body on the current machine.
 
-I made this to easily open pages on one machine and carry on reading them on
-another.
+I made this so I can open a page on one machine then, via the bookmarklet, carry
+on reading it on another.
 
 ## Warning
 
