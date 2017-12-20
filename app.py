@@ -4,6 +4,9 @@ from subprocess import call
 
 app = Flask(__name__)
 
+# Change this to the IP of the sending machine.
+LISTEN_TO = '192.168.1.95'
+
 
 @app.route("/", methods=["POST"])
 def open_url():
@@ -15,6 +18,9 @@ def open_url():
 
     if match is None:
         return ("Invalid URL given.", 400, [])
+
+    if request.remote_addr != LISTEN_TO:
+        return ("Invalid client IP.", 403, [])
 
     return_code = call(["open", url])
 

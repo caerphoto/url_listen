@@ -9,7 +9,7 @@ on reading it on another.
 ## Warning
 
 It's not even slightly secure, so make sure you are careful about what IP you
-listen on.
+listen to. Set the `LISTEN_TO` value appropriately in `app.py`.
 
 ## Requirements
 
