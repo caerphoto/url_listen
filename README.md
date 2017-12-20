@@ -9,7 +9,16 @@ on reading it on another.
 ## Warning
 
 It's not even slightly secure, so make sure you are careful about what IP you
-listen to. Set the `LISTEN_TO` value appropriately in `app.py`.
+listen to. Set the `LISTEN_TO` value appropriately in `listener.py`.
+
+## SSL Certificate/key
+
+You will need to specify an SSL certificate and key, or generate one yourself.
+See [this
+guide](https://blog.miguelgrinberg.com/post/running-your-flask-application-over-https)
+for more details about generating an SSL certificate.  This is needed so the
+listener can use HTTPS, which is needed to avoide mixed content errors when
+using the bookmarklet on HTTPS-secured pages.
 
 ## Requirements
 
