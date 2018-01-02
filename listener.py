@@ -8,6 +8,12 @@ app = Flask(__name__)
 LISTEN_TO = '192.168.1.95'
 
 
+@app.after_request
+def add_header(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
 @app.route("/", methods=["POST"])
 def open_url():
     url = request.form.get("url")

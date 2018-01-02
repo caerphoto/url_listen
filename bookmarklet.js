@@ -8,5 +8,11 @@
   xhr.open('POST', 'https://' + TARGET_HOST + ':5000/', true);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
+  xhr.addEventListener('load', function (response) {
+    if (response.status === 200) {
+      window.close();
+    }
+  }, false);
+
   xhr.send('url=' + currentUrl);
 }());
