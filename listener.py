@@ -1,5 +1,6 @@
 from flask import Flask, request
 import logging
+from logging import StreamHandler
 import re
 from subprocess import call
 
@@ -44,6 +45,9 @@ def open_url():
 
 
 if __name__ == "__main__":
+    handler = StreamHandler()
     logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+    logger.addHandler(handler)
     context = ("cert.pem", "key.pem")
     app.run(host="0.0.0.0", port=5000, ssl_context=context)
