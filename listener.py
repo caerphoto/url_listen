@@ -1,4 +1,5 @@
 from flask import Flask, request
+import logging
 import re
 from subprocess import call
 
@@ -12,6 +13,15 @@ LISTEN_TO = '192.168.1.95'
 def add_header(response):
     response.headers["Access-Control-Allow-Origin"] = "*"
     return response
+
+
+@app.after_request
+def log_request():
+    logging.info(
+        "%s %s",
+        "Opening URL",
+        request.form.get("url")
+    )
 
 
 @app.route("/", methods=["POST"])
