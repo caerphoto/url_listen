@@ -15,15 +15,6 @@ def add_header(response):
     return response
 
 
-@app.after_request
-def log_request(_):
-    logging.info(
-        "%s %s",
-        "Opening URL",
-        request.form.get("url")
-    )
-
-
 @app.route("/", methods=["POST"])
 def open_url():
     url = request.form.get("url")
@@ -42,6 +33,12 @@ def open_url():
 
     if return_code != 0:
         return ("Failed to open URL on remote machine.", 500, [])
+
+    logging.info(
+        "%s %s",
+        "Opening URL",
+        request.form.get("url")
+    )
 
     return ("Opened URL %s" % (url,), 200, [])
 
