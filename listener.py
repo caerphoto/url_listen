@@ -16,7 +16,7 @@ def add_header(response):
 
 
 @app.after_request
-def log_request():
+def log_request(_):
     logging.info(
         "%s %s",
         "Opening URL",
