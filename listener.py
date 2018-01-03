@@ -34,7 +34,7 @@ def open_url():
     if return_code != 0:
         return ("Failed to open URL on remote machine.", 500, [])
 
-    logging.info(
+    logger.info(
         "%s %s",
         "Opening URL",
         request.form.get("url")
@@ -44,5 +44,7 @@ def open_url():
 
 
 if __name__ == "__main__":
+    logger = logging.getLogger("__name__")
+    logger.setLevel(logging.ERROR)
     context = ("cert.pem", "key.pem")
     app.run(host="0.0.0.0", port=5000, ssl_context=context)
