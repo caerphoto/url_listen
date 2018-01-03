@@ -38,4 +38,4 @@ def open_url():
 
 if __name__ == "__main__":
     context = ("cert.pem", "key.pem")
-    app.run(host="0.0.0.0", port=5000, debug=True, ssl_context=context)
+    app.run(host="0.0.0.0", port=5000, ssl_context=context)
