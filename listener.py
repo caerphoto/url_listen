@@ -10,14 +10,29 @@ app = Flask(__name__)
 LISTEN_TO = '192.168.1.95'
 
 
+def get_html():
+    bookmarklet_file = open("bookmarklet.js")
+    html_file = open("bookmarklet.html", "r")
+
+    html = html_file.read().replace("REPLACE_JS", bookmarklet_file.read())
+
+    bookmarklet_file.close()
+    html_file.close()
+
+    return html
+
+
 @app.after_request
 def add_header(response):
     response.headers["Access-Control-Allow-Origin"] = "*"
     return response
 
 
-@app.route("/", methods=["POST"])
+@app.route("/", methods=["POST", "GET"])
 def open_url():
+    if request.method == "GET":
+        return (get_html(), 405, [])
+
     url = request.form.get("url")
     if url is None:
         return ("No 'url' parameter given.", 400, [])

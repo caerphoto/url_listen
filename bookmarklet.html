@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>URL Listener Bookmarklet</title>
+    <style>
+      body {
+        max-width: 30em;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>URL Listener Bookmarklet</h1>
+    <p>This URL is not intended to be viewed in a browser. Instead, add this bookmarklet to your bookmarks/favourites bar:</p>
+    <p>
+      <a href="javascript:REPLACE_JS" id="bookmarklet">🖥 ➔ 💻</a>
+    </p>
+
+    <p>This is an error page:<br>
+    405 Method not allowed</p>
+
+    <script>
+      var bookmarklet = document.querySelector('#bookmarklet');
+      var url = bookmarklet.getAttribute('href');
+      bookmarklet.setAttribute('href', encodeURI(url));
+    </script>
+  </body>
+</html>
