@@ -27,24 +27,30 @@ func check(e error) {
 }
 
 func respond(w http.ResponseWriter, msg string, msgInfo string, status int) {
-	log.Printf(msg, msgInfo)
 	w.Header().Add("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(status)
-	fmt.Fprintf(w, msg, msgInfo)
+	if len(msgInfo) == 0 {
+		log.Printf(msg)
+		fmt.Fprintf(w, msg)
+	} else {
+		log.Printf(msg, msgInfo)
+		fmt.Fprintf(w, msg, msgInfo)
+	}
 }
 
-func get_html() string {
+func get_bookmarklet(w http.ResponseWriter, r *http.Request) {
 	bookmarklet, err := os.ReadFile("bookmarklet.js")
 	check(err)
 	html, err := os.ReadFile("bookmarklet.html")
 	check(err)
-	return strings.Replace(string(html[:]), "REPLACE_JS", string(bookmarklet[:]), 1)
+	htmlStr := strings.Replace(string(html[:]), "REPLACE_JS", string(bookmarklet[:]), 1)
+	fmt.Fprintf(w, htmlStr)
 }
 
 func open_url(w http.ResponseWriter, r *http.Request) {
 	url := r.URL.Query().Get("url")
 	if url == "" {
-		respond(w, "No `url` parameter given", "", http.StatusBadRequest)
+		respond(w, "No `url` parameter given.", "", http.StatusBadRequest)
 		return
 	}
 
@@ -93,6 +99,7 @@ func main() {
 	}
 	ListenPort = lp
 	BrowserCmd = os.Args[2]
+	http.HandleFunc("/bookmark", get_bookmarklet);
 	http.HandleFunc("/", open_url);
 	log.Printf("Listening on %s", host())
 	log.Fatal(http.ListenAndServe(host(), nil))
