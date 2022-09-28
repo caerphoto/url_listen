@@ -42,11 +42,6 @@ func get_html() string {
 }
 
 func open_url(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		respond(w, get_html(), "", http.StatusMethodNotAllowed)
-		return
-	}
-
 	url := r.URL.Query().Get("url")
 	if url == "" {
 		respond(w, "No `url` parameter given", "", http.StatusBadRequest)
